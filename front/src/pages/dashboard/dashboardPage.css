@@ -216,33 +216,54 @@ footer p {
     100% { transform: rotate(360deg); }
 }
 
-.buscador-box{
-    position: absolute;
+.search-box{
     display: flex;
     flex-direction: row;
-    border: 2px solid #aaaaaa;
+    border: 2px solid #c0c0c0;
     border-radius: 15px;
     background-color: #fff;
-    margin-top: 30px;
-    margin-left: calc(100% - 375px);
-    height: 40px;
-    min-width: 300px;
+    height: 35px;
+    width: 400px;
     justify-content: center;
     align-items: center;
 }
 
-.buscador-box i{
-    color: #8f8f8f;
-    margin-right: 5px;
-}
-
-.buscador{
-    border: none;
-    width: 100%;
-    margin-left: 5px;
-    height: calc(100% - 7px);
-}
-
-.buscador:focus{
+.buscar:focus{
     outline: none;
+}
+
+.buscar-text{
+    font-size: 30px;
+    font-family:  'Raleway', sans-serif;
+    
+}
+
+.buscar{
+    width: calc(100% - 40px);
+    border: none;
+    margin-left: 3px;
+    border-radius: 15px 0 0 15px;
+    height: 30px;
+    font-size: 15px;
+}
+
+.btn-buscar{
+    height: 35px;
+    width: 40px;
+    background-color: #c0c0c0;
+    border-radius: 0 10px 10px 0;
+    align-content: center;
+    text-align: center;
+}
+
+.btn-buscar:hover{
+    background-color: #9e9e9e;
+    cursor: pointer;
+}
+
+.home-container{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }

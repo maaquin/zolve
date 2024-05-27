@@ -7,7 +7,7 @@ const NavLogo = ({ onClickHandler }) => {
     return (
         <span className="nav-logo-container" onClick={onClickHandler}>
             <img className="nav-logo" src={logo} alt="Logo" />
-            <span className='nav-title'>Solve</span>
+            <span className='nav-title'>Zolve</span>
         </span>
     );
 };
