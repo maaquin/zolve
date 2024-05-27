@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { Input } from '../Input'
+import { useEffect } from 'react';
 import {
     validateTitle,
     validateDescription,
@@ -22,6 +23,13 @@ export const ImgUrl = ({ imgUrl }) => {
 }
 
 export const NewUser = () => {
+    console.log("NewUser component is rendered");
+
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
     const navigate = useNavigate()
 
     const { newStore, isLoading } = useNewStore();
@@ -149,19 +157,10 @@ export const NewUser = () => {
     };
 
     const isSubmitButtonDisable = isLoading || !formState.name.isValid || !formState.email.isValid || !formState.direction.isValid || !formState.avatarUrl.isValid || !formState.imgUrl.isValid
-
+    
     return (
-        <div className="new-store-container">
-            <div className="btn-box">
-                <button className="btn-user" onClick={() => handleUserTypeSelection("consumer")}>
-                    Soy consumidor
-                </button>
-                <button className="btn-user" onClick={() => handleUserTypeSelection("storeOwner")}>
-                    Soy dueño de tienda
-                </button>
-            </div>
-            {isStoreOwner && (
-                <div className="store-container">
+        <div className="auth-container">
+                <div className="new-store-container">
                     <form className='auth-form'>
                         <div className="input-box">
                             <Input
@@ -260,8 +259,6 @@ export const NewUser = () => {
                         </button>
                     </form>
                 </div>
-            )
-            }
         </div >
     )
 }
