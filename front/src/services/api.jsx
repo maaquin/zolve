@@ -95,3 +95,28 @@ export const newStore = async (data) => {
         }
     }
 }
+
+// Agrega esto en tu archivo de servicios
+export const getStores = async () => {
+    try {
+        return await apiClient.get('/store'); // Ajusta la URL según tu API
+    } catch (e) {
+        console.log(e);
+        return {
+            error: true,
+            e
+        };
+    }
+}
+
+
+export const getStoresDetails = async (storeId) => {
+    try{
+        return await apiClient.get(`/store/${storeId}`)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
