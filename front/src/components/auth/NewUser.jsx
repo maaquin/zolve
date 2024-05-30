@@ -105,7 +105,7 @@ export const NewUser = () => {
       case "direction":
         isValid = validateDescription(value);
         break;
-      
+
       case "coordenadas":
         isValid = validateCoo(value);
         break;
@@ -126,27 +126,38 @@ export const NewUser = () => {
 
   const handleNewStore = async (event) => {
     event.preventDefault();
-
     setIsLoading(true);
 
-    await newStore(
-      formState.name.value,
-      formState.email.value,
-      formState.direction.value,
-      files.avatarUrl,
-      files.imgUrl,
-      formState.coordenadas.value
-    );
-    setIsLoading(false);
-    navigate("/");
+    const reader1 = new FileReader();
+    reader1.readAsDataURL(files.avatarUrl);
+    reader1.onload = async () => {
+      const base64Avatar = reader1.result;
+
+      const reader2 = new FileReader();
+      reader2.readAsDataURL(files.imgUrl);
+      reader2.onload = async () => {
+        const base64Img = reader2.result;
+
+        await newStore(
+          formState.name.value,
+          formState.email.value,
+          formState.direction.value,
+          base64Avatar,
+          base64Img,
+          formState.coordenadas.value
+        );
+        setIsLoading(false);
+        navigate("/");
+      };
+    };
   };
+
 
   const isSubmitButtonDisable =
     isLoading ||
     !formState.name.isValid ||
     !formState.email.isValid ||
-    !formState.direction.isValid ||
-    !formState.coordenadas.isValid;
+    !formState.direction.isValid;
 
   const onDrop = (acceptedFiles, field) => {
     setFiles((prevState) => ({
@@ -169,89 +180,89 @@ export const NewUser = () => {
     });
 
 
-    return (
-      <div className="auth-container">
-        <div className="new-store-container">
-          <form className="auth-form" onSubmit={handleNewStore}>
-            <div className="input-box">
-              <Input
-                field="name"
-                placeholder="Name store"
-                className="login-input"
-                value={formState.name.value}
-                onChangeHandler={handleInputValueChange}
-                type="text"
-                onBlurHandler={handleInputValidationOnBlur}
-              />
-              <i className="fa-solid fa-signature"></i>
-            </div>
-  
-            <div className="input-box">
-              <Input
-                field="email"
-                placeholder="Email store"
-                className="login-input"
-                value={formState.email.value}
-                onChangeHandler={handleInputValueChange}
-                type="text"
-                onBlurHandler={handleInputValidationOnBlur}
-              />
-              <i className="fa-solid fa-envelope"></i>
-            </div>
-  
-            <div className="input-box" style={{ marginBottom: "20px" }}>
-              <Input
-                field="direction"
-                placeholder="Direction store"
-                className="login-input"
-                value={formState.direction.value}
-                onChangeHandler={handleInputValueChange}
-                type="text"
-                onBlurHandler={handleInputValidationOnBlur}
-              />
-              <i className="fa-solid fa-route"></i>
-            </div>
-  
-            <div
-              className="dropzone-container"
-              style={{ marginBottom: "10px", width: "100%" }}
-              {...getAvatarRootProps()}
-            >
-              <input {...getAvatarInputProps()} />
-              {files.avatarUrl ? (
-                <ImgPreview file={files.avatarUrl} />
-              ) : (
-                <>
-                  <p>
-                    Drag and drop an image from the avatar or click to select one
-                  </p>
-                  <i
-                    className="fa-solid fa-camera"
-                    style={{ color: "white" }}
-                  ></i>
-                </>
-              )}
-            </div>
-  
-            <div
-              className="dropzone-container"
-              style={{ width: "100%" }}
-              {...getImgRootProps()}
-            >
-              <input {...getImgInputProps()} />
-              {files.imgUrl ? (
-                <ImgPreview file={files.imgUrl} />
-              ) : (
-                <>
-                  <p>
-                    Drag and drop an image from the store or click to select one
-                  </p>
-                  <i className="fa-solid fa-image" style={{ color: "white" }}></i>
-                </>
-              )}
-            </div>
+  return (
+    <div className="auth-container">
+      <div className="new-store-container">
+        <form className="auth-form" onSubmit={handleNewStore}>
+          <div className="input-box">
+            <Input
+              field="name"
+              placeholder="Name store"
+              className="login-input"
+              value={formState.name.value}
+              onChangeHandler={handleInputValueChange}
+              type="text"
+              onBlurHandler={handleInputValidationOnBlur}
+            />
+            <i className="fa-solid fa-signature"></i>
+          </div>
 
-            <div className="input-box">
+          <div className="input-box">
+            <Input
+              field="email"
+              placeholder="Email store"
+              className="login-input"
+              value={formState.email.value}
+              onChangeHandler={handleInputValueChange}
+              type="text"
+              onBlurHandler={handleInputValidationOnBlur}
+            />
+            <i className="fa-solid fa-envelope"></i>
+          </div>
+
+          <div className="input-box" style={{ marginBottom: "20px" }}>
+            <Input
+              field="direction"
+              placeholder="Direction store"
+              className="login-input"
+              value={formState.direction.value}
+              onChangeHandler={handleInputValueChange}
+              type="text"
+              onBlurHandler={handleInputValidationOnBlur}
+            />
+            <i className="fa-solid fa-route"></i>
+          </div>
+
+          <div
+            className="dropzone-container"
+            style={{ marginBottom: "10px", width: "100%" }}
+            {...getAvatarRootProps()}
+          >
+            <input {...getAvatarInputProps()} />
+            {files.avatarUrl ? (
+              <ImgPreview file={files.avatarUrl} />
+            ) : (
+              <>
+                <p>
+                  Drag and drop an image from the avatar or click to select one
+                </p>
+                <i
+                  className="fa-solid fa-camera"
+                  style={{ color: "white" }}
+                ></i>
+              </>
+            )}
+          </div>
+
+          <div
+            className="dropzone-container"
+            style={{ width: "100%" }}
+            {...getImgRootProps()}
+          >
+            <input {...getImgInputProps()} />
+            {files.imgUrl ? (
+              <ImgPreview file={files.imgUrl} />
+            ) : (
+              <>
+                <p>
+                  Drag and drop an image from the store or click to select one
+                </p>
+                <i className="fa-solid fa-image" style={{ color: "white" }}></i>
+              </>
+            )}
+          </div>
+
+          <div className="input-box">
             <Input
               field="coordenadas"
               placeholder=""

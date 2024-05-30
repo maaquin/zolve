@@ -85,7 +85,7 @@ export const confirmToken = async (token) => {
 }
 
 //Store
-export const newStore = async (data) => {
+export const newStore = async (data) => { console.log(data)
     try{
         return await apiClient.post('/store', data)
     }catch(e){
