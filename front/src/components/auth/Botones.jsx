@@ -13,14 +13,15 @@ export const Botones = () => {
 
   return (
     <div className="btn-container">
-      <button className="btn-user" onClick={() => handleUserTypeSelection("consumer")}>
+      <button className="btn-user consumer-btn" onClick={() => handleUserTypeSelection("consumer")}>
         Soy consumidor
       </button>
-      <button className="btn-user" onClick={() => handleUserTypeSelection("storeOwner")}>
+      <button className="btn-user owner-btn" onClick={() => handleUserTypeSelection("storeOwner")}>
         Soy dueño de tienda
       </button>
     </div>
   );
+  
 };
 
 

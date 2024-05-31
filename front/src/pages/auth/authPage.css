@@ -46,20 +46,28 @@
   transition: all 0.5s ease;
 }
 
-.btn-user:hover {
+.consumer-btn:hover,
+.owner-btn:hover {
   letter-spacing: 3px;
-  background-color: hsl(219, 80%, 48%);
+  background-color: #153448; /* Cambiar al color deseado para "Soy consumidor" */
   color: hsl(0, 0%, 100%);
-  box-shadow: rgb(24, 132, 220) 0px 7px 29px 0px;
 }
 
-.btn-user:active {
+.consumer-btn:active,
+.owner-btn:active {
   letter-spacing: 3px;
-  background-color: hsl(219, 80%, 48%);
+  background-color: #153448; /* Cambiar al color deseado para "Soy consumidor" */
   color: hsl(0, 0%, 100%);
-  box-shadow: rgb(24, 132, 220) 0px 7px 29px 0px;
   transform: translateY(10px);
   transition: 100ms;
+}
+
+.owner-btn:hover {
+  background-color: #810000; /* Cambiar al color deseado para "Soy dueño de tienda" */
+}
+
+.owner-btn:active {
+  background-color: #810000; /* Cambiar al color deseado para "Soy dueño de tienda" */
 }
 
 .btn-container {
