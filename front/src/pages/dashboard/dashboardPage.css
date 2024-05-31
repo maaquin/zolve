@@ -267,3 +267,239 @@ footer p {
     flex-direction: column;
     gap: 15px;
 }
+
+.settings-container {
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.settings-form {
+    background-color: #f4f4f4;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Aumentado el padding */
+    max-width: 500px; /* Aumentado el ancho máximo */
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.settings-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.settings-form .form-group {
+    margin-bottom: 30px; /* Aumentado el margen inferior */
+}
+
+.settings-form label {
+    font-size: 18px;
+    margin-bottom: 10px; /* Aumentado el margen inferior */
+}
+
+.settings-form input {
+    width: 100%;
+    padding: 15px; /* Aumentado el padding */
+    margin-bottom: 15px; /* Aumentado el margen inferior */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.settings-form button {
+    padding: 15px 30px; /* Aumentado el padding */
+    font-size: 18px;
+    background-color: #0b336b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.settings-form button:hover {
+    background-color: #0a2c57;
+}
+
+.settings-form button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container .show-password-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.channels-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 50px;
+    width: calc(100% - 40px);
+    margin-top: 10px;
+    margin-bottom: 150px;
+    margin-left: 30px;
+}
+
+.title-supreme{
+    position: absolute;
+    margin-left: 30px;
+    font-size: 60px;
+    font-weight: 400;
+    font-family: "Roboto Slab", serif;
+    font-style: italic;
+}
+
+.buscador-box{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #aaaaaa;
+    border-radius: 15px;
+    background-color: #fff;
+    margin-top: 30px;
+    right: 80px;
+    height: 40px;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+}
+
+.buscador-box i{
+    color: #8f8f8f;
+    margin-right: 5px;
+}
+
+.nono{
+    margin-top: 300px;
+    margin-left: calc(100% - -150px);
+    width: 400px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #820808;
+}
+
+.channels-img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.channels-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.channels-card {
+    margin-top: 100px;
+    margin-left: 10px;
+    margin-bottom: -120px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.channels-card-title {
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #0e0e10;
+}
+
+.channels-card-text {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.channel-description-container {
+    margin-top: 20px;
+}
+
+.channel-description-title-box {
+    margin-left: 120px;
+    position: absolute;
+}
+
+.channel-description-title {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.store-btn{
+    gap: 5px;
+    align-content: center;
+    margin-left: auto;
+    right: 0;
+    margin-top: -12px;
+}
+
+.channel-description-box {
+    margin-top: 100px;
+    margin-left: 120px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.channel-description-item {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.channel-description-title2 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.channel-description {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.channel-video-container {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 50px;
+}
+
+.channel-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.channel-video-description-section {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.channel-description-box2 {
+    display: flex;
+}

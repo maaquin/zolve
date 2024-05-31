@@ -4,6 +4,7 @@ import { Register } from '../../components/Register'
 import { CheckEmail } from '../../components/auth/ConfirmEmail'
 import { NewUser } from '../../components/auth/NewUser'
 import { Route, Routes } from "react-router-dom";
+import { Botones } from '../../components/auth/Botones';
 
 import './authPage.css'
 
@@ -14,20 +15,27 @@ export const AuthPage = () => {
     setIsLogin((prev) => !prev)
   }
   return (
-    <div className="container">
+    <div>
       <Routes>
         <Route path="/" element={
-          <div className="auth-container">
-            {isLogin ? (
-              <Login switchAuthHandler={handlerAuthPageToggle} />
-            ) : (
-              <Register switchAuthHandler={handlerAuthPageToggle} />
-            )}
+          <div className="container">
+            <div className="auth-container">
+              {isLogin ? (
+                <Login switchAuthHandler={handlerAuthPageToggle} />
+              ) : (
+                <Register switchAuthHandler={handlerAuthPageToggle} />
+              )}
+            </div>
           </div>
         } />
-        <Route path='/confirm' element={<CheckEmail/>} />
-        <Route path='/confirme' element={<NewUser/>}/>
       </Routes>
+      <div className="container-extra">
+        <Routes>
+          <Route path='/confirm' element={<CheckEmail />} />
+          <Route path='/confirme' element={<Botones />} />
+          <Route path='/store-owner' element={<NewUser />} />
+        </Routes>
+      </div>
     </div>
   )
 }

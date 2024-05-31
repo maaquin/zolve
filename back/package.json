@@ -1,7 +1,7 @@
 {
-  "name": "soul.bistro",
+  "name": "the.one.zolve",
   "version": "1.0.0",
-  "description": "Esta aplicación deberá ofrecer funcionalidades completas para la gestión de hotel es, habitaciones y eventos asociados.",
+  "description": "Una aplicación web para la gestión y atención de emergencias vehiculares, proporcionando servicios como ubicación en tiempo real, asistencia en carretera, y contacto rápido con servicios de emergencia.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,11 +9,10 @@
     "dev": "nodemon index.js"
   },
   "keywords": [
-    "Hotels",
     "backend",
     "nodeJs"
   ],
-  "author": "Equipo 2",
+  "author": "maaquin",
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^8.1.3",
