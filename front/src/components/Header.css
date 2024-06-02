@@ -1,0 +1,21 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+.header-container button {
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.header-container button:hover {
+    background-color: #555555;
+}
