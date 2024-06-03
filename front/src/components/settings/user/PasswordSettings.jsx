@@ -75,6 +75,7 @@ export const PasswordSettings = () => {
 
     return (
         <form className="settings-form">
+            <span className='tile-settings'>Change password</span>
             {inputs.map((input) => (
                 <div className="password-input-container" key={input.field}>
                     <label htmlFor={input.field}>{input.label}</label>

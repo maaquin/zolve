@@ -8,4 +8,8 @@ export { useUserSettings } from './user/useUserSettings'
 
 //Store
 export { useNewStore } from './store/useNewStore'
-export {useStoreDetails} from './store/useStoreDetails'
+export { useStoreDetails } from './store/useStoreDetails'
+
+//Product
+export { useListProduct } from './product/useListProduct'
+export { useProductById } from './product/useProductById'

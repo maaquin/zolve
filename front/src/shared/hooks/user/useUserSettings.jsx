@@ -8,7 +8,7 @@ export const UserSettings = () => {
 export const useUserSettings = () => {
     const [userSettings, setUserSettings] = useState()
     const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null;
-   
+   console.log(userId)
       
 
     const fetchUserSettings = async () => {

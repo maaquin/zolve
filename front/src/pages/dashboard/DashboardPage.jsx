@@ -25,7 +25,6 @@ export const DashboardPage = () => {
     return (
         <div className="dashboard-container">
             <Navbar />
-            <Content />
             <Content 
             stores={allStores || []} getStores={getStores}
             />
