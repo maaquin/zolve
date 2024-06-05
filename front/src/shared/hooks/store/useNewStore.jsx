@@ -7,12 +7,11 @@ export const useNewStore = () => {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
-    const newStore = async (name, email, direction, avatarUrl, imgUrl, coordenadas) => {
+    const newStore = async (name, email, direction, imgUrl, coordenadas) => {
         const response = await newStoreRequest({
             name,
             email,
             direction,
-            avatarUrl,
             imgUrl,
             coordenadas
         })

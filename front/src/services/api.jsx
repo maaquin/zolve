@@ -54,7 +54,6 @@ export const putUserSettings = async (data) => {
     }
 }
 export const getUserSetting = async (data) => {
-    console.log(data)
     try{
         return await apiClient.post('/settings/user', data)
     }catch(e){
@@ -110,29 +109,6 @@ export const getStores = async () => {
 export const getStoresDetails = async (storeId) => {
     try{
         return await apiClient.get(`/store/${storeId}`)
-    }catch(e){
-        return{
-            error: true,
-            e
-        }
-    }
-}
-
-//Product
-export const listProducts = async () => {
-    try{
-        return await apiClient.get('/product')
-    }catch(e){
-        return{
-            error: true,
-            e
-        }
-    }
-}
-
-export const productById = async (id) => {
-    try{
-        return await apiClient.get(`/product/${id}`)
     }catch(e){
         return{
             error: true,

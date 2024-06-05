@@ -32,7 +32,6 @@ export const Register = ({ switchAuthHandler }) => {
     })
 
     const [termsAccepted, setTermsAccepted] = useState(false);
-    const [privacyAccepted, setPrivacyAccepted] = useState(false);
     const [termsModalOpen, setTermsModalOpen] = useState(false);
     const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
@@ -82,15 +81,15 @@ export const Register = ({ switchAuthHandler }) => {
     const handleRegister = (event) => {
         event.preventDefault()
 
-        if (termsAccepted && privacyAccepted) {
+        if (termsAccepted) {
             register(formState.username.value, formState.password.value, formState.email.value);
         } else {
-            alert("You must accept the terms and conditions to register.");
+            alert("You must accept the terms and conditions & privacy policy to register.");
         }
     };
 
     const isSubmitButtonDisable = isLoading || !formState.username.isValid || !formState.email.isValid || 
-    !formState.password.isValid || !formState.passwordConfirm.isValid || !termsAccepted || !privacyAccepted;
+    !formState.password.isValid || !formState.passwordConfirm.isValid || !termsAccepted;
 
     return (
         <div className="register-container">
@@ -151,7 +150,7 @@ export const Register = ({ switchAuthHandler }) => {
                             checked={termsAccepted}
                             onChange={() => setTermsAccepted(!termsAccepted)}
                         />
-                        Accept
+                        I accept the
                     </label>
                     <span
                         onClick={() => setTermsModalOpen(true)}
@@ -159,16 +158,7 @@ export const Register = ({ switchAuthHandler }) => {
                     >
                         Terms and Conditions
                     </span>
-                </div>
-                <div className="privacy">
-                    <label className='check-box'>
-                        <input
-                            type="checkbox"
-                            checked={privacyAccepted}
-                            onChange={() => setPrivacyAccepted(!privacyAccepted)}
-                        />
-                        Accept
-                    </label>
+                    &
                     <span
                         onClick={() => setPrivacyModalOpen(true)}
                         style={{ color: '#810000', cursor: 'pointer' }}
@@ -318,7 +308,7 @@ export const Register = ({ switchAuthHandler }) => {
                             8. Contact<br></br>
                             ○ If you have any questions or concerns about our privacy policy, please contact us through our customer service at theonezolve@hotmail.com.</p>
                         <button onClick={() => {
-                            setPrivacyAccepted(true);
+                            setTermsAccepted(true);
                             setPrivacyModalOpen(false);
                         }}>
                             Accept

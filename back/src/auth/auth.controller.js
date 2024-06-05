@@ -70,15 +70,12 @@ export const login = async (req, res) => {
     if(user && (await bcryptjs.compare(password, user.password))){
       const token = await generarJWT(user.id, user.email)
 
-      console.log(user._id)
-
       res.status(200).json({
         msg: "Login Ok!!!",
         userDetails: {
           user: user.username,
           email: user.email,
-          id: user._id,
-          token: token,
+          id: user._id
         },
       });
     }

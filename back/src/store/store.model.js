@@ -10,9 +10,6 @@ const storeSchema = mongoose.Schema({
     score: {
         type: String,
     },
-    avatarUrl: {
-        type: String,
-    },
     imgUrl: {
         type: String,
     },

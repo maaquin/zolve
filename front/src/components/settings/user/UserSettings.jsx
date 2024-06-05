@@ -59,49 +59,48 @@ export const UserSettings = ({ settings, saveSettings }) => {
         break;
     }
     setFormState((prevState) => ({
-      ...prevState,
-      [field]: {
-        ...prevState[field],
-        isValid,
-        showError: !isValid
-      }
+        ...prevState,
+        [field]:{
+            ...prevState[field],
+            isValid,
+            showError: !isValid
+        }
     }))
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = (event) =>{
     event.preventDefault()
 
     saveSettings({
-      username: formState.username.value,
-      email: formState.email.value,
-      userId: userId
+        username: formState.username.value,
+        email: formState.email.value,
+        userId: userId
     })
 
   }
 
   const isSubmitButtonDisabled = !formState.username.isValid ||
-    !formState.email.isValid
+                                 !formState.email.isValid
 
-  return (
+  return(
     <form className="settings-form">
-      <span className='tile-settings'>Update user</span>
-      {inputs.map((input) => (
-        <Input
-          key={input.field}
-          field={input.field}
-          label={input.label}
-          value={formState[input.field].value}
-          onChangeHandler={handleInputValueChange}
-          onBlurHandler={handleInputValidationOnBlur}
-          showErrorMessage={formState[input.field].showError}
-          validationMessage={input.validationMessage}
-          type={input.type}
-          textarea={input.textarea}
-        />
-      ))}
-      <button onClick={handleFormSubmit} disabled={isSubmitButtonDisabled}>
-        Save
-      </button>
+        {inputs.map((input) => (
+            <Input 
+                key={input.field}
+                field={input.field}
+                label={input.label}
+                value={formState[input.field].value}
+                onChangeHandler={handleInputValueChange}
+                onBlurHandler={handleInputValidationOnBlur}
+                showErrorMessage={formState[input.field].showError}
+                validationMessage={input.validationMessage}
+                type={input.type}
+                textarea={input.textarea}
+            />
+        ))}
+        <button onClick={handleFormSubmit} disabled={isSubmitButtonDisabled}>
+            Save
+        </button>
     </form>
   )
 };
