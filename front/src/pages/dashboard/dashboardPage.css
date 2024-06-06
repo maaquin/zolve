@@ -233,15 +233,15 @@ footer p {
 }
 
 .buscar-text{
-    font-size: 30px;
-    font-family:  'Raleway', sans-serif;
+    font-size: 3em;
+    font-family: "Roboto Slab", serif;
     
 }
 
 .buscar{
     width: calc(100% - 40px);
     border: none;
-    margin-left: 3px;
+    margin-left: 10px;
     border-radius: 15px 0 0 15px;
     height: 30px;
     font-size: 15px;
@@ -259,6 +259,28 @@ footer p {
 .btn-buscar:hover{
     background-color: #9e9e9e;
     cursor: pointer;
+}
+
+.welcome{
+    display: flex;
+    gap: 10px;
+    color: #000;
+    align-content: center;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 120px;
+}
+
+.welcome-text{
+    margin-top: -50px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-size: 25px;
+}
+
+.btns{
+    display: flex;
+    gap: 15px;
 }
 
 .home-container{
@@ -344,7 +366,7 @@ footer p {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 50px;
-    width: calc(100% - 40px);
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 150px;
     margin-left: 30px;
@@ -381,7 +403,6 @@ footer p {
 
 .nono{
     margin-top: 300px;
-    margin-left: calc(100% - -150px);
     width: 400px;
     font-size: 30px;
     font-weight: 600;
@@ -539,7 +560,7 @@ footer p {
 
 .section h2 {
     color: #333;
-    font-size: 2em;
+    font-size: 3em;
     margin-bottom: 0.5em;
 }
 
@@ -612,4 +633,34 @@ footer {
     .section p {
         font-size: 0.9em;
     }
+}
+
+.what-zolve-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 50px;
+}
+
+.option-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.option-item.selected {
+    border-color: #9a9a9a;
+    background-color: #ebebeb;
+}
+
+.option-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.option-item p {
+    margin-top: 5px;
+    font-size: 14px;
 }

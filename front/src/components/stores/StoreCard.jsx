@@ -16,10 +16,10 @@ export const StoreCard = ({
     direction,
     score,
     imgUrl,
-    navigateToStoreHandler
+    handleNavigateToStore
 }) => {
     const handleNavigate = () => {
-        navigateToStoreHandler(_id)
+        handleNavigateToStore(_id)
     }
 
     return(

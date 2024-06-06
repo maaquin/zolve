@@ -41,7 +41,7 @@ export const NewUser = () => {
   const navigate = useNavigate();
   const { newStore } = useNewStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState({ avatarUrl: null, imgUrl: null });
+  const [files, setFiles] = useState({ imgUrl: null });
 
   const [formState, setFormState] = useState({
     name: {
@@ -149,7 +149,7 @@ export const NewUser = () => {
     setIsLoading(true);
 
     const reader = new FileReader();
-    reader.readAsDataURL(files.avatarUrl);
+    reader.readAsDataURL(files.imgUrl);
     reader.onload = async () => {
       const base64Img = reader.result;
 

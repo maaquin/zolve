@@ -57,12 +57,6 @@ export const Navbar = () => {
                     onClickHandler={() => handleNavigate('/store', 'stores')}
                     isActive={activeButton === 'stores'}
                 />
-                <NavButton
-                    text="Shopping"
-                    icon="fa-solid fa-cart-shopping"
-                    onClickHandler={() => handleNavigate('/shop', 'shopping')}
-                    isActive={activeButton === 'shopping'}
-                />
                 {!isLogged ? (
                     <NavButton
                         text="Log in"
@@ -72,6 +66,12 @@ export const Navbar = () => {
                     />
                 ) : (
                     <div className="mini-buttons-container">
+                        <NavButton
+                            text="Shopping"
+                            icon="fa-solid fa-cart-shopping"
+                            onClickHandler={() => handleNavigate('/shop', 'shopping')}
+                            isActive={activeButton === 'shopping'}
+                        />
                         <NavButton
                             text="Settings"
                             icon="fa-solid fa-gear"
