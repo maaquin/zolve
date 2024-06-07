@@ -3,27 +3,50 @@ import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 're
 import { SearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useStores } from '../../shared/hooks';
 
 import { userPin } from "./pins/UserPin";
+import { storePin } from "./pins/StorePin";
 
 export const Someone = () => {
+    const { getStores, isFetching, allStores } = useStores();
     const [map, setMap] = useState(null);
     const [searchControl, setSearchControl] = useState(null);
     const [searchInputValue, setSearchInputValue] = useState('');
     const [markerPosition, setMarkerPosition] = useState(null);
+    const [stores, setStores] = useState([]);
+    const [executions, setExecutions] = useState(0);
+
+    useEffect(() => {
+        if (executions < 2) {
+            getStores();
+            setExecutions(executions + 1);
+        }
+    }, [executions, getStores]);
+
+    useEffect(() => {
+        if (allStores.length > 0) {
+            const processedStores = allStores.map(store => {
+                const { name, coordenadas } = store;
+                return { name, coordenadas };
+            });
+            setStores(processedStores);
+            console.log(processedStores);
+        }
+    }, [allStores]);
 
     useEffect(() => {
         if (map && !searchControl) {
             const provider = new OpenStreetMapProvider();
-            const searchControl = new SearchControl({
+            const searchControlInstance = new SearchControl({
                 provider,
                 style: 'bar',
                 position: 'topleft',
                 autoClose: true,
                 keepResult: true,
             });
-            setSearchControl(searchControl);
-            map.addControl(searchControl);
+            setSearchControl(searchControlInstance);
+            map.addControl(searchControlInstance);
         }
     }, [map, searchControl]);
 
@@ -95,7 +118,7 @@ export const Someone = () => {
 
         useEffect(() => {
             if (location) {
-                map.setView(location, 14);
+                map.setView(location, 13);
             }
         }, [location, map]);
 
@@ -141,6 +164,16 @@ export const Someone = () => {
                             <Popup>Selected location</Popup>
                         </Marker>
                     )}
+                    {stores.map((store, index) => (
+                        <Marker
+                            key={index}
+                            position={store.coordenadas.split(',').map(coord => parseFloat(coord.trim()))}
+                            icon={storePin}
+                        >
+                            {console.log(store.coordenadas)}
+                            <Popup>{store.name}</Popup>
+                        </Marker>
+                    ))}
                     <SetViewOnUserLocation location={markerPosition} />
                 </MapContainer>
             </div>
