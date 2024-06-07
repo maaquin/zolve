@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import { SearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
+import { userPin } from "./pins/UserPin";
 
 export const Someone = () => {
     const [map, setMap] = useState(null);
@@ -88,6 +90,18 @@ export const Someone = () => {
         }
     };
 
+    function SetViewOnUserLocation({ location }) {
+        const map = useMap();
+
+        useEffect(() => {
+            if (location) {
+                map.setView(location, 14);
+            }
+        }, [location, map]);
+
+        return null;
+    }
+
     return (
         <div className="home-container">
             <div>
@@ -123,10 +137,11 @@ export const Someone = () => {
                     />
                     <MapClickHandler />
                     {markerPosition && (
-                        <Marker position={markerPosition}>
+                        <Marker position={markerPosition} icon={userPin}>
                             <Popup>Selected location</Popup>
                         </Marker>
                     )}
+                    <SetViewOnUserLocation location={markerPosition} />
                 </MapContainer>
             </div>
             <div className="btns">

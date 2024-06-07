@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { StoreDescription } from "./StoreDescription"; // Asegúrate de tener un componente StoreDescription
-import { useStoreDetails } from "../../shared/hooks/store/useStoreDetails"; // Hook para obtener los detalles de la tienda
+import { StoreDescription } from "./StoreDescription";
+import { useStoreDetails } from "../../shared/hooks/store/useStoreDetails";
 import { LoadingSpinner } from "../LoadingSpinner";
 
 export const ImgStore = ({ imgUrl }) => {
@@ -18,7 +18,7 @@ export const StoreView = ({ getStores }) => {
 
     useEffect(() => {
         getStoresDetails(id);
-    }, [id, getStoresDetails]);
+    }, []);
 
     if (isFetching) {
         return <LoadingSpinner />;

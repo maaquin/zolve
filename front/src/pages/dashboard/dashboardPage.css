@@ -431,10 +431,15 @@ footer p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.5s ease;
     border: 2px solid #ccc;
     border-radius: 10px;
+}
+
+.channels-card:hover {
+    scale: 103%;
+    cursor: pointer;
+    border: 2px solid #bdbdbd;
 }
 
 .channels-card-title {
