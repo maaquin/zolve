@@ -20,6 +20,8 @@ export const StoreView = ({ getStores }) => {
         getStoresDetails(id);
     }, []);
 
+    console.log(storeDetails)
+
     if (isFetching) {
         return <LoadingSpinner />;
     }
@@ -31,13 +33,13 @@ export const StoreView = ({ getStores }) => {
     return (
         <div className="channel-container">
             <div className="channel-video-description-section">
-                <ImgStore imgUrl={storeDetails.imgUrl} />
+                <ImgStore imgUrl={storeDetails.data.imgUrl} />
                 <div className="channel-description-box2">
                     <StoreDescription
-                        storeId={storeDetails._id}
-                        name={storeDetails.name}
-                        direction={storeDetails.direction}
-                        score={storeDetails.score}
+                        storeId={storeDetails.data._id}
+                        name={storeDetails.data.name}
+                        direction={storeDetails.data.direction}
+                        score={storeDetails.data.score}
                         getStores={getStores}
                     />
                 </div>

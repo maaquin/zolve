@@ -14,7 +14,6 @@ export const useStoreDetails = () => {
                 'Error al cargar la información del store'
             )
         }
-        console.log("Store Details Response:", responseData);
         setStoreDetails(responseData)
     } 
 
