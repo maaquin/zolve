@@ -59,48 +59,51 @@ export const UserSettings = ({ settings, saveSettings }) => {
         break;
     }
     setFormState((prevState) => ({
-        ...prevState,
-        [field]:{
-            ...prevState[field],
-            isValid,
-            showError: !isValid
-        }
+      ...prevState,
+      [field]: {
+        ...prevState[field],
+        isValid,
+        showError: !isValid
+      }
     }))
   };
 
-  const handleFormSubmit = (event) =>{
+  const handleFormSubmit = (event) => {
     event.preventDefault()
 
     saveSettings({
-        username: formState.username.value,
-        email: formState.email.value,
-        userId: userId
+      username: formState.username.value,
+      email: formState.email.value,
+      userId: userId
     })
 
   }
 
   const isSubmitButtonDisabled = !formState.username.isValid ||
-                                 !formState.email.isValid
+    !formState.email.isValid
 
-  return(
-    <form className="settings-form">
-        {inputs.map((input) => (
-            <Input 
-                key={input.field}
-                field={input.field}
-                label={input.label}
-                value={formState[input.field].value}
-                onChangeHandler={handleInputValueChange}
-                onBlurHandler={handleInputValidationOnBlur}
-                showErrorMessage={formState[input.field].showError}
-                validationMessage={input.validationMessage}
-                type={input.type}
-                textarea={input.textarea}
-            />
-        ))}
-        <button onClick={handleFormSubmit} disabled={isSubmitButtonDisabled}>
-            Save
+  return (
+    <form className="settings-form" onSubmit={handleFormSubmit}>
+      {inputs.map((input) => (
+        <div className="input-container" key={input.field}>
+          <label htmlFor={input.field}>{input.label}</label>
+          <input
+            id={input.field}
+            type={input.type}
+            value={formState[input.field].value}
+            onChange={(e) => handleInputValueChange(e.target.value, input.field)}
+            onBlur={(e) => handleInputValidationOnBlur(e.target.value, input.field)}
+          />
+          {formState[input.field].showError && (
+            <span className="error-message">{input.validationMessage}</span>
+          )}
+        </div>
+      ))}
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <button type="submit" className="save-btn" disabled={isSubmitButtonDisabled}>
+          Save Changes
         </button>
+      </div>
     </form>
-  )
-};
+  );
+}

@@ -7,6 +7,8 @@ import { useUserDetails } from "../../shared/hooks";
 import { useStores } from "../../shared/hooks/store/useStore.jsx";
 
 import "./dashboardPage.css";
+import './estilos/settings.css'
+
 import { useParams } from "react-router-dom";
 
 export const DashboardPage = () => {
