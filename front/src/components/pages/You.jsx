@@ -2,9 +2,16 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import { useNavigate } from "react-router-dom";
 import { useStores } from '../../shared/hooks';
-
 import { userPin } from "./pins/UserPin";
 import { storePin } from "./pins/StorePin";
+
+const saveLocationToLocalStorage = (location) => {
+    localStorage.setItem('selectedLocation', JSON.stringify(location));
+};
+
+const saveStoreToLocalStorage = (store) => {
+    localStorage.setItem('selectedStore', JSON.stringify(store));
+};
 
 export const You = () => {
     const { getStores, isFetching, allStores } = useStores();
@@ -12,6 +19,7 @@ export const You = () => {
     const [markerPosition, setMarkerPosition] = useState(null);
     const [stores, setStores] = useState([]);
     const [executions, setExecutions] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (executions < 2) {
@@ -27,7 +35,6 @@ export const You = () => {
                 return { name, coordenadas };
             });
             setStores(processedStores);
-            console.log(processedStores);
         }
     }, [allStores]);
 
@@ -37,6 +44,7 @@ export const You = () => {
                 (position) => {
                     const { latitude, longitude } = position.coords;
                     setUserLocation([latitude, longitude]);
+                    saveLocationToLocalStorage([latitude, longitude]);
                 },
                 (error) => {
                     console.error("Error al obtener la ubicación:", error);
@@ -47,16 +55,11 @@ export const You = () => {
         }
     }, []);
 
-    const navigate = useNavigate();
-
-    const handleUserTypeSelection = () => {
-        navigate("/whatProblem?");
-    };
-
     const handleMapClick = (e) => {
         const { lat, lng } = e.latlng;
         setMarkerPosition([lat, lng]);
         setUserLocation(null);
+        saveLocationToLocalStorage([lat, lng]);
     };
 
     function MapClickHandler() {
@@ -78,13 +81,30 @@ export const You = () => {
         return null;
     }
 
+    const handleUserTypeSelection = () => {
+        navigate("/whatProblem?");
+    };
+
+    const goBack = () => {
+        localStorage.removeItem('selectedStore')
+        localStorage.removeItem('selectedLocation')
+        navigate("/");
+    };
+
+    const handleStoreSelection = (store) => {
+        saveStoreToLocalStorage(store);
+        // Aquí puedes agregar cualquier lógica adicional que necesites para el manejo de la selección de la tienda
+    };
+
     return (
         <div className="home-container">
             <div>
                 <form className="buscar-box">
                     <span className="buscar-text">Where you are?</span>
                     <br />
-                    <label>Your location will be obtained automatically through geolocation, this may take a few minutes. But you can adjust it by clicking the map</label>
+                    <span>Please, first choose one store and later place or adjust your location</span>
+                    <br></br>
+                    <span>Your location will be obtained automatically through geolocation, this may take a few minutes. But you can adjust it by clicking the map</span>
                 </form>
             </div>
 
@@ -116,16 +136,30 @@ export const You = () => {
                             key={index}
                             position={store.coordenadas.split(',').map(coord => parseFloat(coord.trim()))}
                             icon={storePin}
+                            eventHandlers={{
+                                click: () => {
+                                    handleStoreSelection(store);
+                                },
+                            }}
                         >
-                            {console.log(store.coordenadas)}
-                            <Popup>{store.name}</Popup>
+                            <Popup>Store: {store.name}</Popup>
                         </Marker>
                     ))}
                 </MapContainer>
             </div>
             <div className="btns">
-                <button className="btn-user zolve-btn" onClick={handleUserTypeSelection}>
+                <button 
+                    className="btn-user zolve-btn" 
+                    onClick={handleUserTypeSelection}
+                    disabled={!localStorage.getItem('selectedLocation') || !localStorage.getItem('selectedStore')}
+                >
                     Continue
+                </button>
+                <button 
+                    className="btn-user zolve-btn" 
+                    onClick={goBack}
+                >
+                    Cancel
                 </button>
             </div>
         </div>

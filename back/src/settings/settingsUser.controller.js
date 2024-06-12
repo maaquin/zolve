@@ -46,8 +46,7 @@ export const usuariosPut = async (req, res) => {
     console.log(usuarioActualizado)
 
     res.status(200).json({
-        msg: 'Tu usuario ha sido actualizado',
-        usuario_nuevo: usuarioActualizado.usuario
+        msg: 'Tu usuario ha sido actualizado'
     });
 }
 

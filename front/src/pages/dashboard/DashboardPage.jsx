@@ -8,6 +8,7 @@ import { useStores } from "../../shared/hooks/store/useStore.jsx";
 
 import "./dashboardPage.css";
 import './estilos/settings.css'
+import './estilos/finishZolve.css'
 
 import { useParams } from "react-router-dom";
 
