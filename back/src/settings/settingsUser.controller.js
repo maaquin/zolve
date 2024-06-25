@@ -123,6 +123,34 @@ export const newCreditCard = async (req, res) => {
     }
 }
 
+export const getCreditCards = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Busca al usuario por su ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        // Verifica si el usuario tiene un customerId
+        if (!user.customerId) {
+            return res.status(404).json({ msg: 'No payment methods found for this user' });
+        }
+
+        // Recupera los métodos de pago del cliente en Stripe
+        const paymentMethods = await stripe.paymentMethods.list({
+            customer: user.customerId,
+            type: 'card',
+        });
+
+        res.status(200).json({ paymentMethods: paymentMethods.data });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+};
+
 export const newPay = async (req, res) => {
     const { customerId, amount, payment_method } = req.body;
 

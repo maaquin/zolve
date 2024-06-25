@@ -7,6 +7,7 @@ import { Someone } from '../pages/Someone';
 import { You } from '../pages/You';
 import { WhatZolve } from "../pages/WhatZolve";
 import { FinishZolve } from "../pages/FinishZolve";
+import { Cart } from "../pages/ShoppingCart";
 
 export const Content = ({ stores }) => {
 
@@ -21,6 +22,7 @@ export const Content = ({ stores }) => {
                 <Route path="settings" element={<Settings/>}/>
                 <Route path="/store" element={<Stores stores={stores} />} />
                 <Route path="/store/:id" element={<StoreView />} />
+                <Route path='/shop' element={<Cart/>} />
             </Routes>
         </div>
     )

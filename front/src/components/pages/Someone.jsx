@@ -62,6 +62,7 @@ export const Someone = () => {
     }, [map, searchControl]);
 
     const handleMapInit = (map) => {
+        console.log('mapa: ',map)
         setMap(map);
     };
 

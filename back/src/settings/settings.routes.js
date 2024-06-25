@@ -9,7 +9,8 @@ import {
     passwordPatch,
     getUserSettingSolo,
     newCreditCard,
-    newPay
+    newPay,
+    getCreditCards
 } from "./settingsUser.controller.js";
 
 const router = Router()
@@ -21,5 +22,6 @@ router.put('/role/:id', usuariosRole)
 router.patch('/user', passwordPatch)
 router.post('/newCard/:id', newCreditCard)
 router.post('/newPay', newPay)
+router.get('/cards/:id', getCreditCards)
 
 export default router

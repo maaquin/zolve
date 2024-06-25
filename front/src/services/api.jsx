@@ -116,3 +116,38 @@ export const getStoresDetails = async (storeId) => {
         }
     }
 }
+
+//CreditCard
+export const getCards = async ( id ) => {
+    try {
+        return await apiClient.get(`/settings/cards/${id}`);
+    } catch (e) {
+        console.log(e);
+        return {
+            error: true,
+            e
+        };
+    }
+}
+export const newCard = async ( data, id ) => {
+    try {
+        return await apiClient.post(`/settings/newCard/${id}`, data);
+    } catch (e) {
+        console.log(e);
+        return {
+            error: true,
+            e
+        };
+    }
+}
+export const newPay = async () => {
+    try {
+        return await apiClient.post('/settings/newPay');
+    } catch (e) {
+        console.log(e);
+        return {
+            error: true,
+            e
+        };
+    }
+}

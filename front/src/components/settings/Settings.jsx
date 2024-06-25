@@ -22,6 +22,10 @@ export const Settings = () => {
                 <span>Change Password</span>
                 <PasswordSettings />
             </div>
+            <div>
+                <span>Your credit cards</span>
+                <PasswordSettings />
+            </div>
             <div className="deactivate-section">
                 <span>Deactivate your account</span>
                 <button className="deactivate-btn">Deactivate</button>

@@ -51,19 +51,21 @@ export const Navbar = () => {
                     onClickHandler={() => handleNavigate('/', '')}
                     isActive={activeButton === ''}
                 />
-                <NavButton
-                    text="Stores"
-                    icon="fa-solid fa-car-side"
-                    onClickHandler={() => handleNavigate('/store', 'stores')}
-                    isActive={activeButton === 'stores'}
-                />
                 {!isLogged ? (
-                    <NavButton
-                        text="Log in"
-                        icon="fa-solid fa-right-to-bracket"
-                        onClickHandler={() => handleNavigate('/auth', 'login')}
-                        isActive={activeButton === 'login'}
-                    />
+                    <>
+                        <NavButton
+                            text="Stores"
+                            icon="fa-solid fa-car-side"
+                            onClickHandler={() => handleNavigate('/store', 'stores')}
+                            isActive={activeButton === 'stores'}
+                        />
+                        <NavButton
+                            text="Log in"
+                            icon="fa-solid fa-right-to-bracket"
+                            onClickHandler={() => handleNavigate('/auth', 'login')}
+                            isActive={activeButton === 'login'}
+                        />
+                    </>
                 ) : (
                     <div className="mini-buttons-container">
                         <NavButton

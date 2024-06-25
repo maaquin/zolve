@@ -140,7 +140,7 @@ body {
 
 .cancel-btn:hover {
     scale: 105%;
-    background-color: #5a0d25;
+    background-color: #d01515;
     color: #fff;
 }
 
@@ -150,7 +150,13 @@ body {
     transition: 100ms;
 }
 .cancel-btn:active {
-    background-color: #5a0d25;
+    background-color: #d01515;
     transform: translateY(10px);
     transition: 100ms;
+}
+
+.checkout-btn:disabled {
+    background-color: #ececec;
+    color: #d01515;
+    cursor: not-allowed;
 }
