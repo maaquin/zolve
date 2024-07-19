@@ -290,11 +290,14 @@ export const FinishZolve = () => {
                         >
                             Pay in Cash
                         </button>
+
+                        Please, first dowload your invoice
+
                         {invoiceData && (
                             <PDFDownloadLink
                                 document={<Factura invoiceData={invoiceData} />}
                                 fileName="invoice.pdf"
-                                className='cash-payment-btn'
+                                className='pdf-download-button'
                             >
                                 {({ loading }) => (loading ? 'Generating PDF...' : 'Download Invoice')}
                             </PDFDownloadLink>

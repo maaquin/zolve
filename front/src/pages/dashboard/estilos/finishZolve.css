@@ -217,3 +217,35 @@ body {
     cursor: pointer;
     background-color: #3c9314;
 }
+
+.pdf-download-button {
+    margin-top: 10px;
+    width: 86.5%;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pdf-download-button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.pdf-download-button:active {
+    background-color: #004080;
+    border-color: #004080;
+}
+
+.pdf-download-button:disabled {
+    background-color: #c0c0c0;
+    border-color: #c0c0c0;
+    cursor: not-allowed;
+}
