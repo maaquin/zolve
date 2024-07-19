@@ -112,6 +112,27 @@ export const FinishZolve = () => {
     const openModal = () => setModalIsOpen(true);
     const closeModal = () => setModalIsOpen(false);
 
+    useEffect(() => {
+        const data = {
+            date: new Date().toLocaleDateString(),
+            clientName: user,
+            amount: price.toFixed(2),
+            items: selectedOptions.map(option => ({
+                name: option.id,
+                price: option.price
+            }))
+        };
+        console.log('data ', data);
+        setInvoiceData(data);
+        console.log('invoice data: ',invoiceData)
+    }, [selectedOptions]);
+
+    useEffect(() => {
+        if (invoiceData) {
+            console.log('Invoice Data Updated:', invoiceData);
+        }
+    }, [invoiceData]);    
+
     const handlePayment = async () => {
         if (!instance) {
             console.error('Braintree instance not initialized');
@@ -142,17 +163,6 @@ export const FinishZolve = () => {
                 });
 
                 if (response.ok) {
-                    const data = {
-                        date: new Date().toLocaleDateString(),
-                        clientName: user,
-                        amount: price.toFixed(2),
-                        items: selectedOptions.map(option => ({
-                            name: option.id,
-                            price: option.price
-                        }))
-                    };
-                    console.log('data ', data);
-                    setInvoiceData(data);
                     closeModal();
                     navigate('/wait');
                 } else {
@@ -167,17 +177,6 @@ export const FinishZolve = () => {
     };
 
     const handleCashPayment = () => {
-        const data = {
-            date: new Date().toLocaleDateString(),
-            clientName: user,
-            amount: price.toFixed(2),
-            items: selectedOptions.map(option => ({
-                name: option.id,
-                price: option.price
-            }))
-        };
-        console.log('data ', data);
-        setInvoiceData(data);
         closeModal();
         navigate('/wait');
     };
@@ -260,6 +259,16 @@ export const FinishZolve = () => {
                                     onApprove={async (data, actions) => {
                                         return actions.order.capture().then(async (details) => {
                                             console.log('Transaction completed by ' + details.payer.name.given_name);
+                                            const invoiceData = {
+                                                date: new Date().toLocaleDateString(),
+                                                clientName: user,
+                                                amount: price.toFixed(2),
+                                                items: selectedOptions.map(option => ({
+                                                    name: option.id,
+                                                    price: option.price
+                                                }))
+                                            };
+                                            setInvoiceData(invoiceData); // Guardar datos de la factura
                                             closeModal();
                                             navigate('/wait');
                                         });
@@ -285,6 +294,7 @@ export const FinishZolve = () => {
                             <PDFDownloadLink
                                 document={<Factura invoiceData={invoiceData} />}
                                 fileName="invoice.pdf"
+                                className='cash-payment-btn'
                             >
                                 {({ loading }) => (loading ? 'Generating PDF...' : 'Download Invoice')}
                             </PDFDownloadLink>

@@ -20,7 +20,7 @@ const Factura = ({ invoiceData }) => (
                 <Text>Invoice</Text>
                 <Text>Date: {invoiceData.date}</Text>
                 <Text>Client: {invoiceData.clientName}</Text>
-                <Text>Amount: ${invoiceData.amount.toFixed(2)}</Text>
+                <Text>Amount: ${invoiceData.amount}</Text>
                 <Text>Items:</Text>
                 {invoiceData.items.map((item, index) => (
                     <Text key={index}>{item.name}: ${item.price.toFixed(2)}</Text>
