@@ -94,6 +94,7 @@ export const newStore = async (data) => {
             e
         }
     }
+<<<<<<< HEAD
 }
 export const getStores = async () => {
     try {
@@ -150,4 +151,6 @@ export const newPay = async () => {
             e
         };
     }
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 }

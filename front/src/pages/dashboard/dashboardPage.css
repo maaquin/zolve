@@ -216,6 +216,7 @@ footer p {
     100% { transform: rotate(360deg); }
 }
 
+<<<<<<< HEAD
 .search-box{
     display: flex;
     flex-direction: row;
@@ -309,6 +310,8 @@ footer p {
     font-style: italic;
 }
 
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 .buscador-box{
     position: absolute;
     display: flex;
@@ -317,7 +320,11 @@ footer p {
     border-radius: 15px;
     background-color: #fff;
     margin-top: 30px;
+<<<<<<< HEAD
     right: 80px;
+=======
+    margin-left: calc(100% - 375px);
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
     height: 40px;
     min-width: 300px;
     justify-content: center;
@@ -329,6 +336,7 @@ footer p {
     margin-right: 5px;
 }
 
+<<<<<<< HEAD
 .nono{
     margin-top: 300px;
     width: 400px;
@@ -596,4 +604,15 @@ footer {
 .option-item p {
     margin-top: 5px;
     font-size: 14px;
+=======
+.buscador{
+    border: none;
+    width: 100%;
+    margin-left: 5px;
+    height: calc(100% - 7px);
+}
+
+.buscador:focus{
+    outline: none;
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 }

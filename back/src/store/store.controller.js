@@ -5,12 +5,20 @@ import bcryptjs from "bcryptjs";
 
 export const newStore = async (req, res) => {
     try {
+<<<<<<< HEAD
         const { name, email, direction, imgUrl, coordenadas } = req.body;
+=======
+        const { name, email, direction, avatarUrl, imgUrl, coordenadas } = req.body;
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 
         const saveStore = new Store({
             name,
             email,
             direction,
+<<<<<<< HEAD
+=======
+            avatarUrl,
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
             imgUrl,
             coordenadas
         });

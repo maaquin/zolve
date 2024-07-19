@@ -7,7 +7,11 @@ const NavLogo = ({ onClickHandler }) => {
     return (
         <span className="nav-logo-container" onClick={onClickHandler}>
             <img className="nav-logo" src={logo} alt="Logo" />
+<<<<<<< HEAD
             <span className='nav-title'>Zolve</span>
+=======
+            <span className='nav-title'>Solve</span>
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
         </span>
     );
 };
@@ -51,6 +55,7 @@ export const Navbar = () => {
                     onClickHandler={() => handleNavigate('/', '')}
                     isActive={activeButton === ''}
                 />
+<<<<<<< HEAD
                 {!isLogged ? (
                     <>
                         <NavButton
@@ -75,6 +80,30 @@ export const Navbar = () => {
                             isActive={activeButton === 'shopping'}
                         />
                         <NavButton
+=======
+                <NavButton
+                    text="Stores"
+                    icon="fa-solid fa-car-side"
+                    onClickHandler={() => handleNavigate('/store', 'stores')}
+                    isActive={activeButton === 'stores'}
+                />
+                <NavButton
+                    text="Shopping"
+                    icon="fa-solid fa-cart-shopping"
+                    onClickHandler={() => handleNavigate('/shop', 'shopping')}
+                    isActive={activeButton === 'shopping'}
+                />
+                {!isLogged ? (
+                    <NavButton
+                        text="Log in"
+                        icon="fa-solid fa-right-to-bracket"
+                        onClickHandler={() => handleNavigate('/auth', 'login')}
+                        isActive={activeButton === 'login'}
+                    />
+                ) : (
+                    <div className="mini-buttons-container">
+                        <NavButton
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
                             text="Settings"
                             icon="fa-solid fa-gear"
                             onClickHandler={() => handleNavigate('/settings', 'settings')}

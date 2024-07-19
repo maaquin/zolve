@@ -46,7 +46,12 @@ export const usuariosPut = async (req, res) => {
     console.log(usuarioActualizado)
 
     res.status(200).json({
+<<<<<<< HEAD
         msg: 'Tu usuario ha sido actualizado'
+=======
+        msg: 'Tu usuario ha sido actualizado',
+        usuario_nuevo: usuarioActualizado.usuario
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
     });
 }
 
@@ -123,6 +128,7 @@ export const newCreditCard = async (req, res) => {
     }
 }
 
+<<<<<<< HEAD
 export const getCreditCards = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -151,6 +157,8 @@ export const getCreditCards = async (req, res) => {
     }
 };
 
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 export const newPay = async (req, res) => {
     const { customerId, amount, payment_method } = req.body;
 

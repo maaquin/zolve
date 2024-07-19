@@ -10,6 +10,12 @@ const storeSchema = mongoose.Schema({
     score: {
         type: String,
     },
+<<<<<<< HEAD
+=======
+    avatarUrl: {
+        type: String,
+    },
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
     imgUrl: {
         type: String,
     },

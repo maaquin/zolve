@@ -31,10 +31,13 @@ export const Register = ({ switchAuthHandler }) => {
         },
     })
 
+<<<<<<< HEAD
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [termsModalOpen, setTermsModalOpen] = useState(false);
     const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
     const handleInputValueChange = (value, field) => {
         setFormState((prevState) => ({
             ...prevState,
@@ -42,8 +45,13 @@ export const Register = ({ switchAuthHandler }) => {
                 ...prevState[field],
                 value
             }
+<<<<<<< HEAD
         }));
     };
+=======
+        }))
+    }
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 
     const handleInputValidationOnBlur = (value, field) => {
         let isValid = false
@@ -75,12 +83,18 @@ export const Register = ({ switchAuthHandler }) => {
                 isValid,
                 showError: !isValid
             }
+<<<<<<< HEAD
         }));
     };
+=======
+        }))
+    }
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 
     const handleRegister = (event) => {
         event.preventDefault()
 
+<<<<<<< HEAD
         if (termsAccepted) {
             register(formState.username.value, formState.password.value, formState.email.value);
         } else {
@@ -90,6 +104,12 @@ export const Register = ({ switchAuthHandler }) => {
 
     const isSubmitButtonDisable = isLoading || !formState.username.isValid || !formState.email.isValid || 
     !formState.password.isValid || !formState.passwordConfirm.isValid || !termsAccepted;
+=======
+        register(formState.username.value, formState.password.value, formState.email.value)
+    }
+
+    const isSubmitButtonDisable = isLoading || !formState.username.isValid || !formState.email.isValid || !formState.password.isValid || !formState.passwordConfirm.isValid
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 
     return (
         <div className="register-container">
@@ -143,6 +163,7 @@ export const Register = ({ switchAuthHandler }) => {
                     />
                     <i className="fa-solid fa-lock"></i>
                 </div>
+<<<<<<< HEAD
                 <div className="terms-and-conditions">
                     <label className='check-box'>
                         <input
@@ -166,6 +187,8 @@ export const Register = ({ switchAuthHandler }) => {
                         Privacy Policy
                     </span>
                 </div>
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
                 <button onClick={handleRegister} disabled={isSubmitButtonDisable}>
                     Register
                 </button>
@@ -173,6 +196,7 @@ export const Register = ({ switchAuthHandler }) => {
             <span onClick={switchAuthHandler} className="auth-form-switch-label">
                 Already have you an account? log in now!
             </span>
+<<<<<<< HEAD
             {termsModalOpen && (
                 <div className="terms-modal-overlay">
                     <div className="terms-modal">
@@ -316,6 +340,8 @@ export const Register = ({ switchAuthHandler }) => {
                     </div>
                 </div>
             )}
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
         </div>
     )
 }

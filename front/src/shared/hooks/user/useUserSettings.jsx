@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import toast from "react-hot-toast"
 import { getUserSetting, putUserSettings } from "../../../services"
+<<<<<<< HEAD
 export const UserSettings = () => {
     // Lógica del componente
   };
@@ -10,6 +11,13 @@ export const useUserSettings = () => {
     const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null;
    
       
+=======
+
+export const useUserSettings = () => {
+    const [userSettings, setUserSettings] = useState()
+    const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null;
+
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
 
     const fetchUserSettings = async () => {
         const response = await getUserSetting({userId})
@@ -43,12 +51,18 @@ export const useUserSettings = () => {
         fetchUserSettings()
     }, [])
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
   return {
     isFetching: !userSettings,
     userSettings,
     saveSettings
+<<<<<<< HEAD
 
     
+=======
+>>>>>>> 370a30cc00298b3a5cec866d0798fe32dff9659e
   }
 }
