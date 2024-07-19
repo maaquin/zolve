@@ -13,6 +13,12 @@ import productRoutes from '../src/product/product.routes.js'
 import facturaRoutes from '../src/factura/factura.routes.js'
 import serviceRoutes from '../src/service/service.routes.js'
 
+import User from "../src/users/user.model.js";
+import Factura from '../src/factura/factura.model.js'
+import Product from '../src/product/product.model.js'
+import Service from '../src/service/service.model.js'
+import Store from '../src/store/store.model.js'
+
 import { dbConnection } from './mongo.js'
 
 class Server {

@@ -8,21 +8,23 @@ import { You } from '../pages/You';
 import { WhatZolve } from "../pages/WhatZolve";
 import { FinishZolve } from "../pages/FinishZolve";
 import { Cart } from "../pages/ShoppingCart";
+import { Wait } from '../pages/Wait'
 
 export const Content = ({ stores }) => {
 
     return (
         <div className="content-container">
             <Routes>
-                <Route path='/' element={<Home/>} />
-                <Route path='/someone' element={<Someone/>} />
-                <Route path='/you' element={<You/>} />
-                <Route path='/whatProblem?' element={<WhatZolve/>} />
-                <Route path='/finalPage' element={<FinishZolve/>} />
-                <Route path="settings" element={<Settings/>}/>
+                <Route path='/' element={<Home />} />
+                <Route path='/someone' element={<Someone />} />
+                <Route path='/you' element={<You />} />
+                <Route path='/whatProblem?' element={<WhatZolve />} />
+                <Route path='/finalPage' element={<FinishZolve />} />
+                <Route path="settings" element={<Settings />} />
                 <Route path="/store" element={<Stores stores={stores} />} />
                 <Route path="/store/:id" element={<StoreView />} />
-                <Route path='/shop' element={<Cart/>} />
+                <Route path='/shop' element={<Cart />} />
+                <Route path='/wait' element={<Wait />} />
             </Routes>
         </div>
     )

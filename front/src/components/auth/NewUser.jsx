@@ -7,7 +7,6 @@ import {
   validateTitle,
   validateDescription,
   validateCoo,
-  validationEmail,
 } from "../../shared/validators";
 import { useNewStore } from "../../shared/hooks";
 import {
@@ -17,6 +16,7 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
+import { storePin } from "../pages/pins/StorePin";
 
 export const ImgPreview = ({ file }) => {
   const defaultImageUrl =
@@ -49,7 +49,7 @@ export const NewUser = () => {
       isValid: false,
       showError: false,
     },
-    email: {
+    phone: {
       value: "",
       isValid: false,
       showError: false,
@@ -78,8 +78,6 @@ export const NewUser = () => {
 
   const [coordinates, setCoordinates] = useState([0, 0]);
   const [userLocation, setUserLocation] = useState(null);
-
-  console.log(userLocation)
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -118,8 +116,8 @@ export const NewUser = () => {
         isValid = validateTitle(value);
         break;
 
-      case "email":
-        isValid = validationEmail(value);
+      case "phone":
+        isValid = validateTitle(value);
         break;
 
       case "direction":
@@ -155,7 +153,7 @@ export const NewUser = () => {
 
       await newStore(
         formState.name.value,
-        formState.email.value,
+        formState.phone.value,
         formState.direction.value,
         base64Img,
         formState.coordenadas.value
@@ -169,7 +167,7 @@ export const NewUser = () => {
   const isSubmitButtonDisable =
     isLoading ||
     !formState.name.isValid ||
-    !formState.email.isValid ||
+    !formState.phone.isValid ||
     !formState.direction.isValid;
 
   const onDrop = (acceptedFiles, field) => {
@@ -207,15 +205,15 @@ export const NewUser = () => {
 
             <div className="input-box">
               <Input
-                field="email"
-                placeholder="Email store"
+                field="phone"
+                placeholder="Phone store"
                 className="login-input"
-                value={formState.email.value}
+                value={formState.phone.value}
                 onChangeHandler={handleInputValueChange}
                 type="text"
                 onBlurHandler={handleInputValidationOnBlur}
               />
-              <i className="fa-solid fa-envelope"></i>
+              <i className="fa-solid fa-phone"></i>
             </div>
 
             <div className="input-box" style={{ marginBottom: "20px" }}>
@@ -271,10 +269,18 @@ export const NewUser = () => {
                 className="tile-layer"
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+
               <MapClickHandler />
+
               {userLocation && (
-                <Marker position={userLocation}>
-                  <Popup>Tu ubicación</Popup>
+                <Marker position={userLocation} icon={storePin}>
+                  <Popup>Selected location</Popup>
+                </Marker>
+              )}
+
+              {coordinates && (
+                <Marker position={coordinates} icon={storePin}>
+                  <Popup>Selected location</Popup>
                 </Marker>
               )}
             </MapContainer>

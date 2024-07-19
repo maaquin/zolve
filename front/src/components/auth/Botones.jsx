@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useRolePut } from '../../shared/hooks'
 
 export const Botones = () => {
   const navigate = useNavigate();
+  const { isLoading, updateRole } = useRolePut();
 
   const handleUserTypeSelection = (userType) => {
     if (userType === "storeOwner") {
+      updateRole('owner')
       navigate("/auth/store-owner");
     } else {
+      updateRole('client')
       navigate("/");
     }
   };

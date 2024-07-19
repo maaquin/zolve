@@ -6,7 +6,7 @@ import { validarJWT } from "../middlewares/validar-jwt.js";
 import { 
     newStore, 
     listStores, 
-    listBadStores, 
+    listUserStores, 
     listStoreId, 
     updateStore, 
     deleteStore, 
@@ -17,9 +17,9 @@ const router = Router();
 
 router.post("/", [validarCampos], newStore);
 router.get("/", listStores);
-router.get("/bad", listBadStores);
+router.post("/user", listUserStores);
 router.get("/:id", listStoreId);
-router.put( "/update", [validarJWT, validarCampos], updateStore);
+router.put( "/update", [validarCampos], updateStore);
 router.put("/delete", [validarJWT], deleteStore);
 router.put("/restore", [validarJWT], restoreStore);
 

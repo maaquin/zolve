@@ -1,55 +1,77 @@
-import { useState } from "react";
-import { newCard as newCardRequest } from '../../../services'
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
+import React, { useEffect, useState } from 'react';
+import dropin from 'braintree-web-drop-in';
+import axios from 'axios';
+import { newCard as newCardRequest } from '../../../services';
+import toast from 'react-hot-toast';
 
-// Cargar la clave pública de Stripe
-const stripePromise = loadStripe('pk_test_51PKhccBcQHKelvaud4seBzFC14iIkBRRrBK0r8HnzsXciQBN9tWZs9dSZxyX4QfW43Sk36qZbJa2XxlpVfAURUps00AqPnD5PI');
-
-export const useNewCard = (userId) => {
+export const useNewCard = () => {
+    const [instance, setInstance] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
+    const [clientToken, setClientToken] = useState(null);
+    const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null;
 
-    const newCard = async (cardElement) => {
+    useEffect(() => {
+        const fetchClientToken = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:3000/zolve/v1/settings/token');
+                setClientToken(response.data.clientToken);
+                console.log(response.data.clientToken);
+            } catch (error) {
+                console.error('Error al obtener el token del cliente:', error);
+            }
+        };
+    
+        fetchClientToken();
+    }, []);    
+
+    useEffect(() => {
+        if (clientToken && document.getElementById('dropin-container')) {
+            dropin.create({
+                authorization: clientToken,
+                container: '#dropin-container'
+            }, (err, dropinInstance) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                setInstance(dropinInstance);
+            });
+        }
+    }, [clientToken]);
+
+    const newCard = async () => {
+        if (!instance) {
+            console.error('Braintree instance not initialized');
+            return;
+        }
+
         setIsLoading(true);
 
-        // Obtener la instancia de Stripe
-        const stripe = await stripePromise;
+        instance.requestPaymentMethod(async (err, payload) => {
+            if (err) {
+                console.error(err);
+                setIsLoading(false);
+                return;
+            }
 
-        if (!stripe) {
+            const response = await newCardRequest({
+                customerId: userId,
+                paymentMethodNonce: payload.nonce
+            });
+
             setIsLoading(false);
-            return toast.error('Stripe.js has not loaded yet.');
-        }
 
-        // Crear el payment method usando Stripe.js
-        const { paymentMethod, error } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
+            if (response.error) {
+                return toast.error(response.e?.response?.data || 'Ocurrió un error, inténtalo de nuevo');
+            }
+
+            toast.success('Nueva tarjeta añadida exitosamente');
         });
-
-        if (error) {
-            setIsLoading(false);
-            return toast.error(error.message);
-        }
-
-        // Enviar el payment method ID al backend
-        const response = await newCardRequest({
-            payment_method: paymentMethod.id
-        }, userId);
-
-        setIsLoading(false);
-
-        if (response.error) {
-            return toast.error(response.e?.response?.data || 'Ocurrio un error, intentalo de nuevo');
-        }
-
-        toast.success('New card added successfully');
-        navigate('/');
-    }
+    };
 
     return {
+        instance,
+        isLoading,
         newCard,
-        isLoading
-    }
-}
+    };
+};

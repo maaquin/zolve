@@ -4,10 +4,13 @@ const storeSchema = mongoose.Schema({
     name: {
         type: String,
     },
+    phone: {
+        type: String,
+    },
     direction: {
         type: String,
     },
-    score: {
+    user: {
         type: String,
     },
     imgUrl: {

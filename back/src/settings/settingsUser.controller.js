@@ -1,8 +1,6 @@
-import User from '../users/user.model.js'
-import bcryptjs from 'bcryptjs'
-import Stripe from 'stripe'
-
-const stripe = Stripe('sk_test_51PKhccBcQHKelvauX3S9BB06tVJYO46e0KqkNrrTdo6Xgj2tQkfSwno3LgItFSqIVeYCvDGZ6x85Yrgwqk2WABFB00ZjZlOWIA');
+import User from '../users/user.model.js';
+import bcryptjs from 'bcryptjs';
+import braintree from 'braintree';
 
 export const getUserSetting = async (req, res) => {
     try {
@@ -51,9 +49,9 @@ export const usuariosPut = async (req, res) => {
 }
 
 export const usuariosRole = async (req, res) => {
-    const { userId } = req.body;
+    const { userId, role } = req.body;
 
-    const actualizaciones = { role: 'ADMIN_ROLE' };
+    const actualizaciones = { role: role };
     const usuarioActualizado = await User.findByIdAndUpdate(userId, actualizaciones, { new: true });
 
     console.log(usuarioActualizado)
@@ -86,86 +84,119 @@ export const passwordPatch = async (req, res) => {
     }
 }
 
-export const newCreditCard = async (req, res) => {
+const gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: 'h9jcyvqkt6k3p24r',
+    publicKey: 't4wnpvhq7mnk76pw',
+    privateKey: '20b7bc7daa8b02235ea5ffca6101effb'
+});
+
+export const generateClientToken = async (req, res) => {
     try {
-        const { userId } = req.params;
-        const { payment_method } = req.body;
-
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-
-        let customer;
-        if (!user.customerId) {
-            // Crear un nuevo cliente en Stripe
-            customer = await stripe.customers.create({
-                payment_method: payment_method,
-                invoice_settings: {
-                    default_payment_method: payment_method,
-                },
-            });
-            user.customerId = customer.id;
-            await user.save();
-        } else {
-            // Actualizar el método de pago para un cliente existente
-            customer = await stripe.customers.update(user.customerId, {
-                invoice_settings: {
-                    default_payment_method: payment_method,
-                },
-            });
-        }
-
-        res.status(200).json({ msg: 'Payment method added successfully', customer });
-    } catch (error) {
-        res.status(500).send({ error: error.message });
-    }
-}
-
-export const getCreditCards = async (req, res) => {
-    try {
-        const { userId } = req.params;
-
-        // Busca al usuario por su ID
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-
-        // Verifica si el usuario tiene un customerId
-        if (!user.customerId) {
-            return res.status(404).json({ msg: 'No payment methods found for this user' });
-        }
-
-        // Recupera los métodos de pago del cliente en Stripe
-        const paymentMethods = await stripe.paymentMethods.list({
-            customer: user.customerId,
-            type: 'card',
+        gateway.clientToken.generate({}, (err, response) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.send({ clientToken: response.clientToken });
         });
-
-        res.status(200).json({ paymentMethods: paymentMethods.data });
-    } catch (error) {
-        res.status(500).send({ error: error.message });
+    } catch (e) {
+        return res.status(500).send('Something went wrong')
     }
 };
 
-export const newPay = async (req, res) => {
-    const { customerId, amount, payment_method } = req.body;
-
+export const newMetodPayment = async (req, res) => {
     try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount,
-            currency: 'usd',
-            customer: customerId,
-            payment_method: payment_method,
-            off_session: true,
-            confirm: true,
-        });
+        const { customerId, paymentMethodNonce, amount } = req.body;
 
-        res.send({ success: true, paymentIntent });
-    } catch (error) {
-        res.status(500).send({ error: error.message });
+        // Paso 1: Crear el método de pago
+        gateway.paymentMethod.create({
+            customerId: customerId,
+            paymentMethodNonce: paymentMethodNonce,
+            options: {
+                verifyCard: true
+            }
+        }, async (err, paymentMethodResult) => {
+            if (err) {
+                return res.status(500).send({ error: 'Error creating payment method', details: err });
+            }
+
+            // Obtener el token del método de pago
+            const paymentMethodToken = paymentMethodResult.paymentMethod.token;
+
+            // Paso 2: Crear la transacción
+            gateway.transaction.sale({
+                amount: amount,
+                paymentMethodToken: paymentMethodToken,
+                options: {
+                    submitForSettlement: true
+                }
+            }, (err, transactionResult) => {
+                if (err) {
+                    return res.status(500).send({ error: 'Error creating transaction', details: err });
+                }
+                res.send(transactionResult);
+            });
+        });
+    } catch (e) {
+        return res.status(500).send({ error: 'Something went wrong', details: e });
     }
-}
+};
+
+
+export const listMethodPayment = async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        const customerId = userId;
+
+        gateway.customer.find(customerId, (err, customer) => {
+            if (err) {
+                if (err.type === 'notFoundError') {
+                    return res.status(404).send({ error: 'Customer not found', details: err });
+                }
+                return res.status(500).send({ error: 'Error retrieving customer', details: err });
+            }
+            res.send(customer.paymentMethods);
+        });
+    } catch (e) {
+        return res.status(500).send({ error: 'Something went wrong', details: e });
+    }
+};
+
+export const deleteMetodPayment = async (req, res) => {
+    try {
+        const { token } = req.params;
+
+        gateway.paymentMethod.delete(token, (err, result) => {
+            if (err) {
+                res.status(500).send(err);
+                return;
+            }
+            res.send(result);
+        });
+    } catch (e) {
+        return res.status(500).send('Something went wrong')
+    }
+};
+
+export const checkout = async (req, res) => {
+    try {
+        const { paymentMethodToken, amount } = req.body;
+
+        gateway.transaction.sale({
+            amount: amount,
+            paymentMethodToken: paymentMethodToken,
+            options: {
+                submitForSettlement: true
+            }
+        }, (err, result) => {
+            if (err) {
+                res.status(500).send(err);
+                return;
+            }
+            res.send(result);
+        });
+    } catch (e) {
+        return res.status(500).send('Something went wrong')
+    }
+};

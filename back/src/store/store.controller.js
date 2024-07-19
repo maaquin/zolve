@@ -5,12 +5,13 @@ import bcryptjs from "bcryptjs";
 
 export const newStore = async (req, res) => {
     try {
-        const { name, email, direction, imgUrl, coordenadas } = req.body;
+        const { name, phone, direction, user, imgUrl, coordenadas } = req.body;
 
         const saveStore = new Store({
             name,
-            email,
+            phone,
             direction,
+            user,
             imgUrl,
             coordenadas
         });
@@ -34,9 +35,11 @@ export const listStores = async (req, res) => {
     }
 };
 
-export const listBadStores = async (req, res) => {
+export const listUserStores = async (req, res) => {
     try {
-        const stores = await Store.find({ estado: false });
+        const { user } = req.body;
+
+        const stores = await Store.find({ user: user });
         return res.status(200).json(stores);
     } catch (error) {
         console.error(error);
@@ -60,11 +63,12 @@ export const listStoreId = async (req, res) => {
 
 export const updateStore = async (req, res) => {
     try {
-        const { id, name, direction, avatarUrl, imgUrl, coordenadas } = req.body;
+        const { id, name, direction, phone, avatarUrl, imgUrl, coordenadas } = req.body;
 
         const refreshStore = await Store.findByIdAndUpdate(id, {
             name,
             direction,
+            phone,
             avatarUrl,
             imgUrl,
             coordenadas

@@ -160,3 +160,60 @@ body {
     color: #d01515;
     cursor: not-allowed;
 }
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 300px;
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    max-height: 80vh; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Muestra una barra de desplazamiento vertical si el contenido es más grande */
+}
+
+/* Estilos para el overlay */
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.cash-payment-btn{
+    border: none;
+    background-color: #439e18;
+    font-size: 15px;
+    color: #fff;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+}
+
+.cash-payment-btn:hover{
+    cursor: pointer;
+    background-color: #3c9314;
+}

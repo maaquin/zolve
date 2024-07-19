@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { validateConfirmPassword, validatePassword } from '../../../shared/validators';
-import { Input } from '../../Input';
 import { useChangePassword } from '../../../shared/hooks';
 
 const passwordInputs = [
     {
         field: 'password',
         validatePassword,
-        label: 'Password',
+        label: 'Actual password',
         type: 'password'
     },
     {

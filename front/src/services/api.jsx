@@ -83,6 +83,16 @@ export const confirmToken = async (token) => {
         }
     }
 }
+export const rolesin = async (data) => {
+    try{
+        return await apiClient.put('/settings/role', data)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
 
 //Store
 export const newStore = async (data) => {
@@ -116,11 +126,33 @@ export const getStoresDetails = async (storeId) => {
         }
     }
 }
+export const getStoresUser = async (user) => {
+    try{
+        return await apiClient.post('/store/user', user)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
+export const updateStores = async (data) => {
+    try{
+        return await apiClient.put('/store/update', data)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
 
 //CreditCard
-export const getCards = async ( id ) => {
+export const token = async () => {
+    console.log(data)
     try {
-        return await apiClient.get(`/settings/cards/${id}`);
+        const response = await apiClient.get('/settings/token');
+        return response.data.clientToken;
     } catch (e) {
         console.log(e);
         return {
@@ -129,9 +161,10 @@ export const getCards = async ( id ) => {
         };
     }
 }
-export const newCard = async ( data, id ) => {
+export const listCards = async ( data ) => {
+    console.log(data)
     try {
-        return await apiClient.post(`/settings/newCard/${id}`, data);
+        return await apiClient.post('/settings/cards', data);
     } catch (e) {
         console.log(e);
         return {
@@ -140,14 +173,35 @@ export const newCard = async ( data, id ) => {
         };
     }
 }
-export const newPay = async () => {
+export const newCard = async ( data ) => {
     try {
-        return await apiClient.post('/settings/newPay');
+        return await apiClient.post('/settings/newCard', data);
     } catch (e) {
         console.log(e);
         return {
             error: true,
             e
         };
+    }
+}
+export const checkout = async () => {
+    try {
+        return await apiClient.post('/settings/checkout');
+    } catch (e) {
+        console.log(e);
+        return {
+            error: true,
+            e
+        };
+    }
+}
+export const deleteCard = async (token) => {
+    try{
+        return await apiClient.delete(`/settings/deleteCard/${token}`)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
     }
 }

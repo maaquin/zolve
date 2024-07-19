@@ -57,7 +57,7 @@
 }
 
 /* Estilos para los botones */
-.settings-form button {
+.settings-form button, .save-btn {
     padding: 10px 15px;
     border: none;
     border-radius: 15px;
@@ -66,18 +66,18 @@
     transition: all 0.5s ease;
 }
 
-.settings-form button.save-btn {
+.save-btn {
     background-color: #ececec;
     color: rgb(58, 154, 209);
 }
 
-.settings-form button.save-btn:disabled {
+.save-btn:disabled {
     background-color: #ececec;
     color: #d01515;
     cursor: not-allowed;
 }
 
-.settings-form button.save-btn:not(:disabled):hover {
+.save-btn:not(:disabled):hover {
     background-color: rgb(58, 154, 209);
     color: #fff;
     scale: 105%;

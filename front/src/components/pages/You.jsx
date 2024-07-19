@@ -151,7 +151,7 @@ export const You = () => {
                 <button 
                     className="btn-user zolve-btn" 
                     onClick={handleUserTypeSelection}
-                    disabled={!localStorage.getItem('selectedLocation') || !localStorage.getItem('selectedStore')}
+                    disabled={!localStorage.getItem('selectedStore') || !localStorage.getItem('selectedLocation')}
                 >
                     Continue
                 </button>

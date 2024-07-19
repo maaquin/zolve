@@ -73,7 +73,7 @@ export const Home = () => {
                         </section>
 
                         <section id="services" className="section">
-                            <div class="text">
+                            <div className="text">
                                 <h2>Drive without worries</h2>
                                 <p>Create peace of mind in your own time with our automotive assistance services. You can rest assured that you will always have help on hand, whether you use your own car or a rental vehicle.</p>
                             </div>

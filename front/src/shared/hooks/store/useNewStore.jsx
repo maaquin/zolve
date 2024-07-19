@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 export const useNewStore = () => {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null;
 
-    const newStore = async (name, email, direction, imgUrl, coordenadas) => {
+    const newStore = async (name, phone, direction, imgUrl, coordenadas) => {
         const response = await newStoreRequest({
             name,
-            email,
+            phone,
             direction,
+            user,
             imgUrl,
             coordenadas
         })
