@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import Modal from "react-modal";
 import DropIn from 'braintree-web-drop-in-react';
-import axios from 'axios';
+import Invoice from '../shop/Factura'
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Radio de la Tierra en kilómetros
@@ -29,6 +29,8 @@ export const FinishZolve = () => {
     const [instance, setInstance] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [paymentMethodNonce, setPaymentMethodNonce] = useState(null);
+    const [invoiceData, setInvoiceData] = useState(null);
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).user : null;
 
     useEffect(() => {
         Modal.setAppElement('#root');
@@ -139,10 +141,22 @@ export const FinishZolve = () => {
                 });
 
                 if (response.ok) {
+                    const data = {
+                        date: new Date().toLocaleDateString(),
+                        clientName: user,
+                        amount: price,
+                        items: selectedOptions.map(option => ({
+                            name: option.id,
+                            price: option.price
+                        }))
+                    };
+                    console.log('data ', data)
+                    setInvoiceData(data);
+                    console.log('invoice data ', invoiceData)
                     closeModal();
-                    navigate('/wait'); // Redirige a la página /wait
+                    navigate('/wait');
                 } else {
-                    // Handle payment error here
+                    console.log('recorcholis, hubo error en el pago :(')
                 }
             } catch (error) {
                 console.error('Ocurrió un error al procesar el pago', error);
@@ -153,8 +167,20 @@ export const FinishZolve = () => {
     };
 
     const handleCashPayment = () => {
+        const data = {
+            date: new Date().toLocaleDateString(),
+            clientName: user,
+            amount: price,
+            items: selectedOptions.map(option => ({
+                name: option.id,
+                price: option.price
+            }))
+        };
+        console.log('data ', data)
+        setInvoiceData(data);
+        console.log('invoice data ', invoiceData)
         closeModal();
-        navigate('/wait'); // Redirige a la página /wait para pago en efectivo
+        navigate('/wait');
     };
 
     return (
@@ -236,7 +262,7 @@ export const FinishZolve = () => {
                                         return actions.order.capture().then(async (details) => {
                                             console.log('Transaction completed by ' + details.payer.name.given_name);
                                             closeModal();
-                                            navigate('/wait'); // Redirige a la página /wait
+                                            navigate('/wait');
                                         });
                                     }}
                                 />
@@ -259,6 +285,8 @@ export const FinishZolve = () => {
                     </div>
                 </div>
             </Modal>
+
+            {invoiceData && <Invoice invoiceData={invoiceData} />}
         </>
     );
 };
