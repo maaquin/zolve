@@ -1,30 +1,33 @@
-import React from 'react';
+// src/components/Factura.jsx
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
-const Invoice = ({ invoiceData }) => {
+const styles = StyleSheet.create({
+    page: {
+        padding: 30,
+        flexDirection: 'column',
+    },
+    section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1,
+    },
+});
 
-    console.log('hola')
-
-    if (!invoiceData) return null;
-
-    console.log('hola 2')
-
-    return (
-        <div className="invoice">
-            <h2>Invoice</h2>
-            <p>Date: {invoiceData.date}</p>
-            <p>Client: {invoiceData.clientName}</p>
-            <p>Amount: ${invoiceData.amount.toFixed(2)}</p>
-            <h3>Items:</h3>
-            <ul>
+const Factura = ({ invoiceData }) => (
+    <Document>
+        <Page size="A4" style={styles.page}>
+            <View style={styles.section}>
+                <Text>Invoice</Text>
+                <Text>Date: {invoiceData.date}</Text>
+                <Text>Client: {invoiceData.clientName}</Text>
+                <Text>Amount: ${invoiceData.amount.toFixed(2)}</Text>
+                <Text>Items:</Text>
                 {invoiceData.items.map((item, index) => (
-                    <li key={index}>
-                        {item.name}: ${item.price.toFixed(2)}
-                    </li>
+                    <Text key={index}>{item.name}: ${item.price.toFixed(2)}</Text>
                 ))}
-            </ul>
-            <button onClick={() => window.print()}>Print Invoice</button>
-        </div>
-    );
-};
+            </View>
+        </Page>
+    </Document>
+);
 
-export default Invoice;
+export default Factura;

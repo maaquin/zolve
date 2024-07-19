@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import Modal from "react-modal";
 import DropIn from 'braintree-web-drop-in-react';
-import Invoice from '../shop/Factura'
+import Factura from '../shop/Factura';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Radio de la Tierra en kilómetros
@@ -144,19 +145,18 @@ export const FinishZolve = () => {
                     const data = {
                         date: new Date().toLocaleDateString(),
                         clientName: user,
-                        amount: price,
+                        amount: price.toFixed(2),
                         items: selectedOptions.map(option => ({
                             name: option.id,
                             price: option.price
                         }))
                     };
-                    console.log('data ', data)
+                    console.log('data ', data);
                     setInvoiceData(data);
-                    console.log('invoice data ', invoiceData)
                     closeModal();
                     navigate('/wait');
                 } else {
-                    console.log('recorcholis, hubo error en el pago :(')
+                    console.log('recorcholis, hubo error en el pago :(');
                 }
             } catch (error) {
                 console.error('Ocurrió un error al procesar el pago', error);
@@ -170,15 +170,14 @@ export const FinishZolve = () => {
         const data = {
             date: new Date().toLocaleDateString(),
             clientName: user,
-            amount: price,
+            amount: price.toFixed(2),
             items: selectedOptions.map(option => ({
                 name: option.id,
                 price: option.price
             }))
         };
-        console.log('data ', data)
+        console.log('data ', data);
         setInvoiceData(data);
-        console.log('invoice data ', invoiceData)
         closeModal();
         navigate('/wait');
     };
@@ -282,11 +281,17 @@ export const FinishZolve = () => {
                         >
                             Pay in Cash
                         </button>
+                        {invoiceData && (
+                            <PDFDownloadLink
+                                document={<Factura invoiceData={invoiceData} />}
+                                fileName="invoice.pdf"
+                            >
+                                {({ loading }) => (loading ? 'Generating PDF...' : 'Download Invoice')}
+                            </PDFDownloadLink>
+                        )}
                     </div>
                 </div>
             </Modal>
-
-            {invoiceData && <Invoice invoiceData={invoiceData} />}
         </>
     );
 };
